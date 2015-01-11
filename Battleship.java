@@ -1,62 +1,60 @@
 import java.util.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Battleship{
     
-    private char[][] Board1; 
-    private char[][] Board2;
-    private char rows, cols;
     Random rand = new Random();
-    String ships = "SS,SSS,SSS,SSS,SSSS,SSSS";
     
-    public Battleship(){
-	Board1 = new char[15][15];
-	Board2 = new char[15][15];
-	this.rows = 15;
-	this.cols = 15;	
-	clear(Board1);
-	clear(Board2);
-  
-    }
-
-    private void clear(char[][] b){
-	for(int h = 0; h < b.length; h++){
-	    for(int w = 0; w < b[h].length; w++){
-		b[h][w]='_';
-	    }
+    public static void wait(int n){
+	try {
+	    Thread.sleep(n);                 
+	} catch(InterruptedException ex) {
+	    Thread.currentThread().interrupt();
 	}
     }
 
-    public String toString(char[][] b){
-	String result = "";
-	for(int h = 0; h < b.length; h++){
-	    result += "{";
-	    for(int w = 0; w < b[h].length; w++){
-		result += b[h][w];
-		result += " ";
-	    }
-	    result += "}";
-	    result += "\n";
-	}
-	return result;
+    public static Board GenerateBoard(){
+	Board player = new Board();
+	//Scan for row and col
+	//placeShip(r,c)
     }
 
-    public boolean addShip(char[][] b, String ship,int row, int col){
-	if(row < b.length && col < b[row].length){
-	    if(b[row].length-col >= ship.length()){
-		for(int i = 0; i < ship.length(); i++){
-		    if(b[row][col+i]!='_' && b[row][col+i]!=ship.charAt(i)){
-			return false;
-		    }
-		}
-		for(int i = 0; i < ship.length(); i++){
-		    b[row][col+i]=ship.charAt(i);
-
-		}
-		return true;
-	    }
-	}
-	return false;
+    public static Board GenerateOpp(){
+	Board opponent = new Board();
+	//randomly placeShip
     }
-}
+
+    public static void first(Board player, Board opponent){
+	Random chance = new Random();
+	boolean turn = chance.nextBoolean();
+	if(turn){
+	    wait(1000);
+	    System.out.println("Opponent goes first.");
+	    boolean move = chance.nextBoolean();
+	    if(move){
+		opponent.attack(player);
+	    } 
+	    else{
+		opponent.specialAttack(player);
+	    }
+	    wait(1500);
+	    //print boards
+	    
+	}
+	else{
+	    wait(1000);
+	    System.out.println("Player goes first.");
+	}
+	
+    }    
+   
+    public static void combat(Board player, Board other){
+
+    }
+
+    public static void isAlive(Board player){
+    }
+
+
+
+    
